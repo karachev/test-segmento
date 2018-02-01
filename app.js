@@ -7,13 +7,12 @@ let balances = document.querySelectorAll('.balance');
 
 let countID = document.querySelectorAll('input[title="id"]').length;
 
-// const MAX_LENGTH_COMMENT = 512;
+const MAX_LENGTH_COMMENT = 512;
 
 
 getBalance();
 
 buttonAdd.addEventListener('click', function () {
-  // debugger;
   validationComment();
   if (!document.querySelector('.no-validate')) {
       countID++;
@@ -24,8 +23,7 @@ buttonAdd.addEventListener('click', function () {
       tableBody.appendChild(tr);
       tr.querySelector('.balance').focus();
 
-
-      getBalance(); // Нужно убрать будет
+      getBalance();
   }
 });
 
@@ -39,29 +37,30 @@ function getBalance() {
 
 
 function validationComment() {
-  // debugger;
   let tr = document.querySelectorAll('tr');
   balances = document.querySelectorAll('.balance');
   let comment = document.querySelectorAll('.comment');
 
   for (let i = 0; i < tr.length - 1; i++) {
-    // возможно стоит заменить на обратные
     if (balances[i].value === "0" ||
         balances[i].value === "" ||
         isNaN(balances[i].value) ||
-        +balances[i].value > 10000 ||
+        +balances[i].value > 1000 ||
         +balances[i].value < -1000) {
-      balances[i].classList.add('no-validate');
+        balances[i].classList.add('no-validate');
+    } else  {
+        balances[i].classList.remove('no-validate');
     }
-    else if (comment[i].value === "" || comment[i].value.length > 512) {
+    if (comment[i].value === "" ||
+        comment[i].value.length > MAX_LENGTH_COMMENT) {
       comment[i].classList.add('no-validate');
     } else {
-        balances[i].classList.remove('no-validate');
-        comment[i].classList.remove('no-validate');
+    comment[i].classList.remove('no-validate');
     }
   }
 }
 
+// TODO стоит ли сделать реализацию подсказки валидации
 // TODO Реализованная возможность сортировки по полям "Id" и "Количество средств"
 // TODO Сохранение состояния сортировки в url. Для возможности обмена ссылкой с заданной сортировкой
 // TODO Добавление pagination если количество записей в таблице превышает 10
