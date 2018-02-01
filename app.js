@@ -12,7 +12,44 @@ const MAX_LENGTH_COMMENT = 512;
 
 getBalance();
 
+let table = document.querySelector('table');
+
+table.addEventListener('click', function (evt) {
+    // debugger;
+    if (evt.target.tagName !== 'TH') return;
+    sortGrid(evt.target.cellIndex, evt.target.getAttribute('data-type'));
+});
+
+function sortGrid(colNum, type) {
+    // Составить массив из TR
+    let rowsArray = [].slice.call(tableBody.rows);
+    // определить функцию сравнения, в зависимости от типа
+    let compare;
+
+    switch (type) {
+        case 'id':
+            compare = function(rowA, rowB) {
+                return rowA.cells[colNum].children[0].value - rowB.cells[colNum].children[0].value;
+            };
+            break;
+        case 'amount':
+            compare = function(rowA, rowB) {
+                return rowA.cells[colNum].children[0].value - rowB.cells[colNum].children[0].value;
+            };
+            break;
+    }
+
+    // сортировать
+    rowsArray.sort(compare);
+    // добавить результат в нужном порядке в TBODY
+    // они автоматически будут убраны со старых мест и вставлены в правильном порядке
+    for (let i = 0; i < rowsArray.length; i++) {
+        tableBody.appendChild(rowsArray[i]);
+    }
+}
+
 buttonAdd.addEventListener('click', function () {
+    // debugger;
   validationComment();
   if (!document.querySelector('.no-validate')) {
       countID++;
