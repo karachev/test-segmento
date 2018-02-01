@@ -6,35 +6,37 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <header id="header" class="header">
-    <p>Результат: <span id="result"></span></p>
-  </header>
-  <main id="content" class="content">
-    <table>
+<header id="header" class="header">
+  <p>Результат: <span id="result"></span></p>
+</header>
+<main id="content" class="content">
+  <table>
+    <tbody>
       <tr>
         <th>id</th>
         <th>Количество средств:</th>
         <th>Комментарий:</th>
       </tr>
       <tr>
-        <td><input title="id" type="number" value="1"></td>
+        <td><input title="id" type="number" value="1" disabled></td>
         <td><input title="Количество средств" class="balance" type="number" value="0"></td>
         <td><input title="Комментарий" type="text" value="Хорошо" maxlength="512"></td>
       </tr>
       <tr>
-        <td><input title="id" type="number" value="2"></td>
+        <td><input title="id" type="number" value="2" disabled></td>
         <td><input title="Количество средств" class="balance" type="number" value="-100"></td>
         <td><input title="Комментарий" type="text" value="Плохо" maxlength="512"></td>
       </tr>
       <tr>
-        <td><input title="id" type="number" value="3"></td>
+        <td><input title="id" type="number" value="3" disabled></td>
         <td><input title="Количество средств" class="balance" type="number" value="1"></td>
         <td><input title="Комментарий" type="text" value="Удовлетворительно" maxlength="512"></td>
       </tr>
-    </table>
-    <button class="button-add">Добавить</button>
+    </tbody>
+  </table>
+  <button class="button-add">Добавить</button>
 
-  </main>
-  <script src="app.js"></script>
+</main>
+<script src="app.js"></script>
 </body>
 </html>

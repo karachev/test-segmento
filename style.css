@@ -16,3 +16,6 @@ button {
   margin: 30px auto;
 }
 
+th {
+  cursor: pointer;
+}
