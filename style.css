@@ -19,3 +19,7 @@ button {
 th {
   cursor: pointer;
 }
+
+.no-validate {
+  border-color: red;
+}

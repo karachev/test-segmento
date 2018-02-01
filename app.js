@@ -13,17 +13,20 @@ let countID = document.querySelectorAll('input[title="id"]').length;
 getBalance();
 
 buttonAdd.addEventListener('click', function () {
+  // debugger;
+  validationComment();
+  if (!document.querySelector('.no-validate')) {
+      countID++;
+      let tr = document.createElement('tr');
+      tr.innerHTML = `<td><input title=\"id\" type=\"number\" value=\"${countID}\" disabled></td>` +
+          `<td><input title=\"Количество средств\" class=\"balance\" type=\"number\" value=\"\"></td>` +
+          `<td><input title=\"Комментарий\" class=\"comment\" type=\"text\" value=\"\" maxlength=\"512\"></td>`;
+      tableBody.appendChild(tr);
+      tr.querySelector('.balance').focus();
 
-  countID++;
-  let tr = document.createElement('tr');
-  tr.innerHTML = `<td><input title=\"id\" type=\"number\" value=\"${countID}\" disabled></td>` +
-                  `<td><input title=\"Количество средств\" class=\"balance\" type=\"number\" value=\"\"></td>` +
-                  `<td><input title=\"Комментарий\" type=\"text\" value=\"\" maxlength=\"512\"></td>`;
-  tableBody.appendChild(tr);
-  tr.querySelector('.balance').focus();
 
-
-  getBalance(); // Нужно убрать будет
+      getBalance(); // Нужно убрать будет
+  }
 });
 
 function getBalance() {
@@ -36,7 +39,23 @@ function getBalance() {
 
 
 function validationComment() {
+  // debugger;
+  let tr = document.querySelectorAll('tr');
+  balances = document.querySelectorAll('.balance');
+  let comment = document.querySelectorAll('.comment');
 
+  for (let i = 0; i < tr.length - 1; i++) {
+    // возможно стоит заменить на обратные
+    if (balances[i].value === "0" || balances[i].value === "" || isNaN(balances[i].value)) {
+      balances[i].classList.add('no-validate');
+    }
+    else if (comment[i].value === "" || comment[i].value.length > 512) {
+      comment[i].classList.add('no-validate');
+    } else {
+        balances[i].classList.remove('no-validate');
+        comment[i].classList.remove('no-validate');
+    }
+  }
 }
 
 // TODO валидация ячеек
