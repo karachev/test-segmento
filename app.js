@@ -13,6 +13,7 @@ let countID = document.querySelectorAll('input[title="id"]').length;
 getBalance();
 
 buttonAdd.addEventListener('click', function () {
+
   countID++;
   let tr = document.createElement('tr');
   tr.innerHTML = `<td><input title=\"id\" type=\"number\" value=\"${countID}\" disabled></td>` +
@@ -20,6 +21,9 @@ buttonAdd.addEventListener('click', function () {
                   `<td><input title=\"Комментарий\" type=\"text\" value=\"\" maxlength=\"512\"></td>`;
   tableBody.appendChild(tr);
   tr.querySelector('.balance').focus();
+
+
+  getBalance(); // Нужно убрать будет
 });
 
 function getBalance() {
@@ -30,14 +34,15 @@ function getBalance() {
   result.innerHTML = resultValue.toString();
 }
 
-// function validationComment() {
-//
-// }
 
-// TODO Реализованная возможность сортировки по полям "Id" и "Количество средств"
-// TODO Обновление результата
+function validationComment() {
+
+}
+
 // TODO валидация ячеек
 // TODO комментарий ограничен на js 512 символов
+// TODO Обновление результата
+// TODO Реализованная возможность сортировки по полям "Id" и "Количество средств"
 // TODO Сохранение состояния сортировки в url. Для возможности обмена ссылкой с заданной сортировкой
 // TODO Добавление pagination если количество записей в таблице превышает 10
 // TODO Кроссбраузерность и адаптивность
