@@ -46,7 +46,11 @@ function validationComment() {
 
   for (let i = 0; i < tr.length - 1; i++) {
     // возможно стоит заменить на обратные
-    if (balances[i].value === "0" || balances[i].value === "" || isNaN(balances[i].value)) {
+    if (balances[i].value === "0" ||
+        balances[i].value === "" ||
+        isNaN(balances[i].value) ||
+        +balances[i].value > 10000 ||
+        +balances[i].value < -1000) {
       balances[i].classList.add('no-validate');
     }
     else if (comment[i].value === "" || comment[i].value.length > 512) {
@@ -58,9 +62,6 @@ function validationComment() {
   }
 }
 
-// TODO валидация ячеек
-// TODO комментарий ограничен на js 512 символов
-// TODO Обновление результата
 // TODO Реализованная возможность сортировки по полям "Id" и "Количество средств"
 // TODO Сохранение состояния сортировки в url. Для возможности обмена ссылкой с заданной сортировкой
 // TODO Добавление pagination если количество записей в таблице превышает 10
