@@ -117,6 +117,58 @@ function showLocalStorage() {
   }
 }
 
+// let currentPage = 1;
+// let trPerPage = 10;
+//
+// let btnNext = document.querySelector('.button-prev');
+// let btnPrev = document.querySelector('.button-next');
+//
+// btnNext.addEventListener('click', function (evt) {
+//   evt.preventDefault();
+//   nextPage();
+// })
+//
+// btnPrev.addEventListener('click', function (evt) {
+//   evt.preventDefault();
+//   prevPage();
+// })
+//
+// function prevPage() {
+//   if (currentPage > 1) {
+//     currentPage--;
+//     changePage(currentPage);
+//   }
+// }
+//
+// function nextPage() {
+//   if (currentPage < numPages()) {
+//     currentPage++;
+//     changePage(currentPage);
+//   }
+// }
+//
+// function changePage(page) {
+//   if (page < 1) page = 1;
+//   if (page > showNumPage()) page = showNumPage();
+//
+//   if (page === 1) {
+//     btnPrev.style.visibility = 'hidden';
+//   } else {
+//     btnPrev.style.visibility = 'visible';
+//   }
+//
+//   if (page === showNumPage()) {
+//     btnNext.style.visibility = 'hidden';
+//   } else {
+//     btnNext.style.visibility = 'visible';
+//   }
+// }
+//
+// function showNumPage() {
+//   let tr = document.querySelectorAll('tr');
+//   return Math.ceil(tr.length - 1 / trPerPage)
+// }
+
 // TODO стоит ли сделать реализацию подсказки валидации
 // TODO Сохранение состояния сортировки в url. Для возможности обмена ссылкой с заданной сортировкой
 // TODO Добавление pagination если количество записей в таблице превышает 10
@@ -124,3 +176,4 @@ function showLocalStorage() {
 // TODO Адптивность - Babel и полифилл
 // TODO подумать на счёт кнопки валидации
 // TODO добавить комментарии с помощью JSDoc
+// TODO возможно стоит разбить по файлам
