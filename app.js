@@ -4,61 +4,57 @@ let buttonAdd = document.querySelector('.button-add');
 let tableBody = document.querySelector('tbody');
 let result = document.querySelector('#result');
 let balances = document.querySelectorAll('.balance');
-
 let countID = document.querySelectorAll('input[title="id"]').length;
+let table = document.querySelector('table');
 
 const MAX_LENGTH_COMMENT = 512;
 
 showLocalStorage();
 getBalance();
 
-let table = document.querySelector('table');
 
 table.addEventListener('click', function (evt) {
-    if (evt.target.tagName !== 'TH') return;
-    sortGrid(evt.target.cellIndex, evt.target.getAttribute('data-type'));
+  if (evt.target.tagName !== 'TH') return;
+  sortGrid(evt.target.cellIndex, evt.target.getAttribute('data-type'));
 });
 
 function sortGrid(colNum, type) {
-    // Составить массив из TR
-    let rowsArray = [].slice.call(tableBody.rows);
-    // определить функцию сравнения, в зависимости от типа
-    let compare;
+  let rowsArray = [].slice.call(tableBody.rows);
+  let compare;
 
-    switch (type) {
-        case 'id':
-            compare = function(rowA, rowB) {
-                return rowA.cells[colNum].children[0].value - rowB.cells[colNum].children[0].value;
-            };
-            break;
-        case 'amount':
-            compare = function(rowA, rowB) {
-                return rowA.cells[colNum].children[0].value - rowB.cells[colNum].children[0].value;
-            };
-            break;
-    }
+  switch (type) {
+    case 'id':
+      compare = function (rowA, rowB) {
+        return rowA.cells[colNum].children[0].value - rowB.cells[colNum].children[0].value;
+      };
+      break;
+    case 'amount':
+      compare = function (rowA, rowB) {
+        return rowA.cells[colNum].children[0].value - rowB.cells[colNum].children[0].value;
+      };
+      break;
+  }
 
-    // сортировать
-    rowsArray.sort(compare);
-    // они автоматически будут убраны со старых мест и вставлены в правильном порядке
-    for (let i = 0; i < rowsArray.length; i++) {
-        tableBody.appendChild(rowsArray[i]);
-    }
+  rowsArray.sort(compare);
+
+  for (let i = 0; i < rowsArray.length; i++) {
+    tableBody.appendChild(rowsArray[i]);
+  }
 }
 
 buttonAdd.addEventListener('click', function () {
   validationComment();
   if (!document.querySelector('.no-validate')) {
-      countID = document.querySelectorAll('input[title="id"]').length;
-      countID++;
-      let tr = document.createElement('tr');
-      tr.innerHTML = `<td><input title=\"id\" type=\"number\" value=\"${countID}\" disabled></td>` +
-          `<td><input title=\"Количество средств\" class=\"balance\" type=\"number\" value=\"\"></td>` +
-          `<td><input title=\"Комментарий\" class=\"comment\" type=\"text\" value=\"\" maxlength=\"512\"></td>`;
-      tableBody.appendChild(tr);
-      tr.querySelector('.balance').focus();
+    countID = document.querySelectorAll('input[title="id"]').length;
+    countID++;
+    let tr = document.createElement('tr');
+    tr.innerHTML = `<td><input title=\"id\" type=\"number\" value=\"${countID}\" disabled></td>` +
+      `<td><input title=\"Количество средств\" class=\"balance\" type=\"number\" value=\"\"></td>` +
+      `<td><input title=\"Комментарий\" class=\"comment\" type=\"text\" value=\"\" maxlength=\"512\"></td>`;
+    tableBody.appendChild(tr);
+    tr.querySelector('.balance').focus();
 
-      getBalance();
+    getBalance();
   }
 });
 
@@ -78,21 +74,21 @@ function validationComment() {
   let comment = document.querySelectorAll('.comment');
   for (let i = 0; i < tr.length - 1; i++) {
     if (balances[i].value === "0" ||
-        balances[i].value === "" ||
-        isNaN(balances[i].value) ||
-        +balances[i].value > 1000 ||
-        +balances[i].value < -1000) {
-        balances[i].classList.add('no-validate');
-    } else  {
-        balances[i].classList.remove('no-validate');
-        localStorage.setItem('balance' + `${i}`, balances[i].value);
+      balances[i].value === "" ||
+      isNaN(balances[i].value) ||
+      +balances[i].value > 1000 ||
+      +balances[i].value < -1000) {
+      balances[i].classList.add('no-validate');
+    } else {
+      balances[i].classList.remove('no-validate');
+      localStorage.setItem('balance' + `${i}`, balances[i].value);
     }
     if (comment[i].value === "" ||
-        comment[i].value.length > MAX_LENGTH_COMMENT) {
+      comment[i].value.length > MAX_LENGTH_COMMENT) {
       comment[i].classList.add('no-validate');
     } else {
       comment[i].classList.remove('no-validate');
-      localStorage.setItem('comment'  + `${i}`, comment[i].value);
+      localStorage.setItem('comment' + `${i}`, comment[i].value);
     }
   }
 }
@@ -127,3 +123,4 @@ function showLocalStorage() {
 // TODO Кроссбраузерность и адаптивность
 // TODO Адптивность - Babel и полифилл
 // TODO подумать на счёт кнопки валидации
+// TODO добавить комментарии с помощью JSDoc
