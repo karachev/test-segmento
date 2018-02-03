@@ -11,11 +11,11 @@ const MAX_LENGTH_COMMENT = 512;
 
 
 getBalance();
+showLocalStorage();
 
 let table = document.querySelector('table');
 
 table.addEventListener('click', function (evt) {
-    // debugger;
     if (evt.target.tagName !== 'TH') return;
     sortGrid(evt.target.cellIndex, evt.target.getAttribute('data-type'));
 });
@@ -41,7 +41,6 @@ function sortGrid(colNum, type) {
 
     // сортировать
     rowsArray.sort(compare);
-    // добавить результат в нужном порядке в TBODY
     // они автоматически будут убраны со старых мест и вставлены в правильном порядке
     for (let i = 0; i < rowsArray.length; i++) {
         tableBody.appendChild(rowsArray[i]);
@@ -87,12 +86,31 @@ function validationComment() {
         balances[i].classList.add('no-validate');
     } else  {
         balances[i].classList.remove('no-validate');
+        localStorage.setItem('balance' + `${i}`, balances[i].value);
     }
     if (comment[i].value === "" ||
         comment[i].value.length > MAX_LENGTH_COMMENT) {
       comment[i].classList.add('no-validate');
     } else {
-    comment[i].classList.remove('no-validate');
+      comment[i].classList.remove('no-validate');
+      localStorage.setItem('comment'  + `${i}`, comment[i].value);
+    }
+  }
+}
+
+function showLocalStorage() {
+  if (localStorage.length > 0) {
+    debugger;
+    let countID = 0;
+    for (let i = 0; i < localStorage.length / 2; i++) {
+      let balance = localStorage.key(i);
+      let comment = localStorage.key(localStorage.length / 2 + i);
+      countID++;
+      let tr = document.createElement('tr');
+      tr.innerHTML = `<td><input title=\"id\" type=\"number\" value=\"${countID}\" disabled></td>` +
+        `<td><input title=\"Количество средств\" class=\"balance\" type=\"number\" value=\"${localStorage.getItem(balance)}\"></td>` +
+        `<td><input title=\"Комментарий\" class=\"comment\" type=\"text\" value=\"${localStorage.getItem(comment)}\" maxlength=\"512\"></td>`;
+      tableBody.appendChild(tr);
     }
   }
 }
