@@ -9,9 +9,8 @@ let countID = document.querySelectorAll('input[title="id"]').length;
 
 const MAX_LENGTH_COMMENT = 512;
 
-
-getBalance();
 showLocalStorage();
+getBalance();
 
 let table = document.querySelector('table');
 
@@ -48,9 +47,9 @@ function sortGrid(colNum, type) {
 }
 
 buttonAdd.addEventListener('click', function () {
-    // debugger;
   validationComment();
   if (!document.querySelector('.no-validate')) {
+      countID = document.querySelectorAll('input[title="id"]').length;
       countID++;
       let tr = document.createElement('tr');
       tr.innerHTML = `<td><input title=\"id\" type=\"number\" value=\"${countID}\" disabled></td>` +
@@ -65,6 +64,7 @@ buttonAdd.addEventListener('click', function () {
 
 function getBalance() {
   let resultValue = 0;
+  balances = document.querySelectorAll('.balance');
   for (let i = 0; i < balances.length; i++) {
     resultValue += +balances[i].value;
   }
@@ -76,7 +76,6 @@ function validationComment() {
   let tr = document.querySelectorAll('tr');
   balances = document.querySelectorAll('.balance');
   let comment = document.querySelectorAll('.comment');
-
   for (let i = 0; i < tr.length - 1; i++) {
     if (balances[i].value === "0" ||
         balances[i].value === "" ||
@@ -100,7 +99,6 @@ function validationComment() {
 
 function showLocalStorage() {
   if (localStorage.length > 0) {
-    debugger;
     let countID = 0;
     for (let i = 0; i < localStorage.length / 2; i++) {
       let balance = localStorage.key(i);
