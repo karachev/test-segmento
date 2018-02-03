@@ -110,6 +110,14 @@ function showLocalStorage() {
         `<td><input title=\"Комментарий\" class=\"comment\" type=\"text\" value=\"${localStorage.getItem(comment)}\" maxlength=\"512\"></td>`;
       tableBody.appendChild(tr);
     }
+  } else {
+    for (let i = 1; i <= 3; i++) { // Наичнается с единицы, чтобы id и balance != 0
+      let initialData = document.createElement('tr');
+      initialData.innerHTML = `<td><input title=\"id\" type=\"number\" value=\"${i}\" disabled></td>` +
+        `<td><input title=\"Количество средств\" class=\"balance\" type=\"number\" value=\"${10 * i}\"></td>` +
+        `<td><input title=\"Комментарий\" class=\"comment\" type=\"text\" value=\"Комментарий\" maxlength=\"512\"></td>`;
+      tableBody.appendChild(initialData);
+    }
   }
 }
 
@@ -117,3 +125,5 @@ function showLocalStorage() {
 // TODO Сохранение состояния сортировки в url. Для возможности обмена ссылкой с заданной сортировкой
 // TODO Добавление pagination если количество записей в таблице превышает 10
 // TODO Кроссбраузерность и адаптивность
+// TODO Адптивность - Babel и полифилл
+// TODO подумать на счёт кнопки валидации
