@@ -169,6 +169,11 @@ function showLocalStorage() {
 //   return Math.ceil(tr.length - 1 / trPerPage)
 // }
 
+let monkeyList = new List('tbody', {
+  page: 10,
+  pagination: true
+});
+
 // TODO стоит ли сделать реализацию подсказки валидации
 // TODO Сохранение состояния сортировки в url. Для возможности обмена ссылкой с заданной сортировкой
 // TODO Добавление pagination если количество записей в таблице превышает 10
