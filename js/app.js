@@ -81,14 +81,22 @@ function validationComment() {
       balances[i].classList.add('no-validate');
     } else {
       balances[i].classList.remove('no-validate');
-      localStorage.setItem('balance' + `${i}`, balances[i].value);
+      if (i < 10) {
+        localStorage.setItem('balance0' + `${i}`, balances[i].value);
+      } else {
+        localStorage.setItem('balance' + `${i}`, balances[i].value);
+      }
     }
     if (comment[i].value === "" ||
       comment[i].value.length > MAX_LENGTH_COMMENT) {
       comment[i].classList.add('no-validate');
     } else {
       comment[i].classList.remove('no-validate');
-      localStorage.setItem('comment' + `${i}`, comment[i].value);
+      if (i < 10) {
+        localStorage.setItem('comment0' + `${i}`, comment[i].value);
+      } else {
+        localStorage.setItem('comment' + `${i}`, comment[i].value);
+      }
     }
   }
 }
