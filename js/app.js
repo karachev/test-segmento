@@ -6,16 +6,48 @@ let result = document.querySelector('#result');
 let balances = document.querySelectorAll('.balance');
 let countID = document.querySelectorAll('input[title="id"]').length;
 let table = document.querySelector('table');
+let btnNext = document.querySelector('#btn-next');
+let btnPrev = document.querySelector('#btn-prev');
+let currentPage = 1;
+let trPerPage = 10;
+
 
 const MAX_LENGTH_COMMENT = 512;
 
 showLocalStorage();
 getBalance();
+changePage(currentPage);
 
 
 table.addEventListener('click', function (evt) {
   if (evt.target.tagName !== 'TH') return;
   sortGrid(evt.target.cellIndex, evt.target.getAttribute('data-type'));
+});
+
+buttonAdd.addEventListener('click', function () {
+  validationComment();
+  if (!document.querySelector('.no-validate')) {
+    countID = localStorage.length / 2;
+    countID++;
+    let tr = document.createElement('tr');
+    tr.innerHTML = `<td><input title=\"id\" type=\"number\" value=\"${countID}\" disabled></td>` +
+      `<td><input title=\"Количество средств\" class=\"balance\" type=\"number\" value=\"\"></td>` +
+      `<td><input title=\"Комментарий\" class=\"comment\" type=\"text\" value=\"\" maxlength=\"512\"></td>`;
+    tableBody.appendChild(tr);
+    tr.querySelector('.balance').focus();
+
+    getBalance();
+  }
+});
+
+btnPrev.addEventListener('click', function (evt) {
+  evt.preventDefault();
+  changePrevPage();
+});
+
+btnNext.addEventListener('click', function (evt) {
+  evt.preventDefault();
+  changeNextPage();
 });
 
 function sortGrid(colNum, type) {
@@ -42,23 +74,6 @@ function sortGrid(colNum, type) {
   }
 }
 
-buttonAdd.addEventListener('click', function () {
-  validationComment();
-  if (!document.querySelector('.no-validate')) {
-    // countID = document.querySelectorAll('input[title="id"]').length;
-    countID = localStorage.length / 2;
-    countID++;
-    let tr = document.createElement('tr');
-    tr.innerHTML = `<td><input title=\"id\" type=\"number\" value=\"${countID}\" disabled></td>` +
-      `<td><input title=\"Количество средств\" class=\"balance\" type=\"number\" value=\"\"></td>` +
-      `<td><input title=\"Комментарий\" class=\"comment\" type=\"text\" value=\"\" maxlength=\"512\"></td>`;
-    tableBody.appendChild(tr);
-    tr.querySelector('.balance').focus();
-
-    getBalance();
-  }
-});
-
 function getBalance() {
   let resultValue = 0;
   balances = document.querySelectorAll('.balance');
@@ -67,7 +82,6 @@ function getBalance() {
   }
   result.innerHTML = resultValue.toString();
 }
-
 
 function validationComment() {
   let tr = document.querySelectorAll('tr');
@@ -126,12 +140,50 @@ function showLocalStorage() {
   }
 }
 
-let dataTable = new DataTable("#table", {
-  searchable: false,
-  sortable: false,
-  perPage: 10,
-  perPageSelect: false,
-});
+function changePrevPage() {
+  if (currentPage > 1) {
+    currentPage--;
+    changePage(currentPage);
+  }
+}
+
+function changeNextPage() {
+  if (currentPage < numPages()) {
+    currentPage++;
+    changePage(currentPage);
+  }
+}
+
+function changePage(page) {
+  let tr = tableBody.querySelectorAll('tr');
+
+  for (let i = 0; i < tr.length; i++) {
+    tr[i].style.display = "none";
+  }
+
+  for (let i = (page - 1) * trPerPage; i < (page * trPerPage); i++) {
+    if (tr[i] !== undefined) {
+      tr[i].style.display = 'table-row';
+    }
+  }
+
+  if (page === 1) {
+    btnPrev.style.visibility = "hidden";
+  } else {
+    btnPrev.style.visibility = "visible";
+  }
+
+  if (page === numPages()) {
+    btnNext.style.visibility = "hidden";
+  } else {
+    btnNext.style.visibility = "visible";
+  }
+}
+
+function numPages() {
+  let tr = tableBody.querySelectorAll('tr');
+  return Math.ceil(tr.length / trPerPage);
+}
 
 // TODO Записей больше 10, нужно придумать как перезагрузить
 // TODO стоит ли сделать реализацию подсказки валидации
