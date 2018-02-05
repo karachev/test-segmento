@@ -20,10 +20,21 @@ th {
   cursor: pointer;
 }
 
-.no-validate {
-  border-color: red;
-}
-
 .balance {
   width: 100%;
+}
+
+input {
+  width: 100%;
+  padding: 3px 0;
+  border: none;
+}
+
+.dataTable-info,
+.dataTable-top{
+  display: none;
+}
+
+.no-validate {
+  background-color: red;
 }
