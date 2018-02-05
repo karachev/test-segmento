@@ -45,7 +45,8 @@ function sortGrid(colNum, type) {
 buttonAdd.addEventListener('click', function () {
   validationComment();
   if (!document.querySelector('.no-validate')) {
-    countID = document.querySelectorAll('input[title="id"]').length;
+    // countID = document.querySelectorAll('input[title="id"]').length;
+    countID = localStorage.length / 2;
     countID++;
     let tr = document.createElement('tr');
     tr.innerHTML = `<td><input title=\"id\" type=\"number\" value=\"${countID}\" disabled></td>` +
