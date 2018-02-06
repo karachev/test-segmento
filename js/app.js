@@ -27,7 +27,7 @@ table.addEventListener('click', function (evt) {
 buttonAdd.addEventListener('click', function () {
   validationComment();
   if (!document.querySelector('.no-validate')) {
-    countID = localStorage.length / 2;
+    countID = tableBody.querySelectorAll('tr').length;
     countID++;
     let tr = document.createElement('tr');
     tr.innerHTML = `<td><input title=\"id\" type=\"number\" value=\"${countID}\" disabled></td>` +
