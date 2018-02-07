@@ -1,23 +1,22 @@
 'use strict';
 
-let buttonAdd = document.querySelector('.button-add');
+var buttonAdd = document.querySelector('.button-add');
 buttonAdd.setAttribute('disabled', 'true');
-let tableBody = document.querySelector('tbody');
-let result = document.querySelector('#result');
-let balances = document.querySelectorAll('.balance');
-let countID = document.querySelectorAll('input[title="id"]').length;
-let table = document.querySelector('table');
-let btnNext = document.querySelector('#btn-next');
-let btnPrev = document.querySelector('#btn-prev');
-let currentPage = 1;
-let trPerPage = 10;
+var tableBody = document.querySelector('tbody');
+var result = document.querySelector('#result');
+var balances = document.querySelectorAll('.balance');
+var countID = document.querySelectorAll('input[title="id"]').length;
+var table = document.querySelector('table');
+var btnNext = document.querySelector('#btn-next');
+var btnPrev = document.querySelector('#btn-prev');
+var currentPage = 1;
+var trPerPage = 10;
 
-const MAX_LENGTH_COMMENT = 512;
+var MAX_LENGTH_COMMENT = 512;
 
 createTable();
 getBalance();
 changePage(currentPage);
-
 
 table.addEventListener('click', function (evt) {
   if (evt.target.tagName !== 'TH') return;
@@ -29,10 +28,8 @@ buttonAdd.addEventListener('click', function () {
   if (!document.querySelector('.no-validate')) {
     countID = tableBody.querySelectorAll('tr').length;
     countID++;
-    let tr = document.createElement('tr');
-    tr.innerHTML = `<td><input title=\"id\" type=\"number\" value=\"${countID}\" disabled></td>` +
-      `<td><input title=\"Количество средств\" class=\"balance\" type=\"number\" value=\"\"></td>` +
-      `<td><input title=\"Комментарий\" class=\"comment\" type=\"text\" value=\"\" maxlength=\"512\"></td>`;
+    var tr = document.createElement('tr');
+    tr.innerHTML = '<td><input title="id" type="number" value="' + countID + '" disabled></td>' + '<td><input title="\u041A\u043E\u043B\u0438\u0447\u0435\u0441\u0442\u0432\u043E \u0441\u0440\u0435\u0434\u0441\u0442\u0432" class="balance" type="number" value=""></td>' + '<td><input title="\u041A\u043E\u043C\u043C\u0435\u043D\u0442\u0430\u0440\u0438\u0439" class="comment" type="text" value="" maxlength="512"></td>';
     tableBody.appendChild(tr);
     tr.querySelector('.balance').focus();
 
@@ -51,39 +48,39 @@ btnNext.addEventListener('click', function (evt) {
 });
 
 function sortGrid(colNum, type) {
-  let rowsArray = [].slice.call(tableBody.rows);
-  let compare;
+  var rowsArray = [].slice.call(tableBody.rows);
+  var compare = void 0;
 
   switch (type.getAttribute('data-type')) {
     case 'id-up':
-      compare = function (rowA, rowB) {
+      compare = function compare(rowA, rowB) {
         return rowA.cells[colNum].children[0].value - rowB.cells[colNum].children[0].value;
       };
       type.setAttribute('data-type', 'id-down');
       break;
     case 'id-down':
-        compare = function (rowA, rowB) {
-            return rowB.cells[colNum].children[0].value - rowA.cells[colNum].children[0].value;
-        };
-        type.setAttribute('data-type', 'id-up');
-        break;
+      compare = function compare(rowA, rowB) {
+        return rowB.cells[colNum].children[0].value - rowA.cells[colNum].children[0].value;
+      };
+      type.setAttribute('data-type', 'id-up');
+      break;
     case 'amount-up':
-      compare = function (rowA, rowB) {
+      compare = function compare(rowA, rowB) {
         return rowA.cells[colNum].children[0].value - rowB.cells[colNum].children[0].value;
       };
       type.setAttribute('data-type', 'amount-down');
       break;
     case 'amount-down':
-        compare = function (rowA, rowB) {
-          return rowB.cells[colNum].children[0].value - rowA.cells[colNum].children[0].value;
-        };
-        type.setAttribute('data-type', 'amount-up');
-        break;
+      compare = function compare(rowA, rowB) {
+        return rowB.cells[colNum].children[0].value - rowA.cells[colNum].children[0].value;
+      };
+      type.setAttribute('data-type', 'amount-up');
+      break;
   }
 
   rowsArray.sort(compare);
   // changePage();
-  for (let i = 0; i < rowsArray.length; i++) {
+  for (var i = 0; i < rowsArray.length; i++) {
     tableBody.appendChild(rowsArray[i]);
     rowsArray[i].style.display = 'table-row'; //?
   }
@@ -91,30 +88,25 @@ function sortGrid(colNum, type) {
 }
 
 function getBalance() {
-  let resultValue = 0;
+  var resultValue = 0;
   balances = document.querySelectorAll('.balance');
-  for (let i = 0; i < balances.length; i++) {
+  for (var i = 0; i < balances.length; i++) {
     resultValue += +balances[i].value;
   }
   result.innerHTML = resultValue.toString();
 }
 
 function validationComment() {
-  let tr = document.querySelectorAll('tr');
+  var tr = document.querySelectorAll('tr');
   balances = document.querySelectorAll('.balance');
-  let comment = document.querySelectorAll('.comment');
-  for (let i = 0; i < tr.length - 1; i++) {
-    if (balances[i].value === "0" ||
-      balances[i].value === "" ||
-      isNaN(balances[i].value) ||
-      +balances[i].value > 1000 ||
-      +balances[i].value < -1000) {
+  var comment = document.querySelectorAll('.comment');
+  for (var i = 0; i < tr.length - 1; i++) {
+    if (balances[i].value === "0" || balances[i].value === "" || isNaN(balances[i].value) || +balances[i].value > 1000 || +balances[i].value < -1000) {
       balances[i].classList.add('no-validate');
     } else {
       balances[i].classList.remove('no-validate');
     }
-    if (comment[i].value === "" ||
-      comment[i].value.length > MAX_LENGTH_COMMENT) {
+    if (comment[i].value === "" || comment[i].value.length > MAX_LENGTH_COMMENT) {
       comment[i].classList.add('no-validate');
     } else {
       comment[i].classList.remove('no-validate');
@@ -123,11 +115,10 @@ function validationComment() {
 }
 
 function createTable() {
-  for (let i = 1; i <= 15; i++) { // Наичнается с единицы, чтобы id и balance != 0
-    let initialData = document.createElement('tr');
-    initialData.innerHTML = `<td><input title=\"id\" type=\"number\" value=\"${i}\" disabled></td>` +
-      `<td><input title=\"Количество средств\" class=\"balance\" type=\"number\" value=\"${Math.floor(Math.random() * 100)}\"></td>` +
-      `<td><input title=\"Комментарий\" class=\"comment\" type=\"text\" value=\"Комментарий\" maxlength=\"512\"></td>`;
+  for (var i = 1; i <= 15; i++) {
+    // Наичнается с единицы, чтобы id и balance != 0
+    var initialData = document.createElement('tr');
+    initialData.innerHTML = '<td><input title="id" type="number" value="' + i + '" disabled></td>' + ('<td><input title="\u041A\u043E\u043B\u0438\u0447\u0435\u0441\u0442\u0432\u043E \u0441\u0440\u0435\u0434\u0441\u0442\u0432" class="balance" type="number" value="' + Math.floor(Math.random() * 100) + '"></td>') + '<td><input title="\u041A\u043E\u043C\u043C\u0435\u043D\u0442\u0430\u0440\u0438\u0439" class="comment" type="text" value="\u041A\u043E\u043C\u043C\u0435\u043D\u0442\u0430\u0440\u0438\u0439" maxlength="512"></td>';
     tableBody.appendChild(initialData);
   }
 }
@@ -147,18 +138,17 @@ function changeNextPage() {
 }
 
 function changePage(page) {
-  let tr = tableBody.querySelectorAll('tr');
+  var tr = tableBody.querySelectorAll('tr');
 
-  for (let i = 0; i < tr.length; i++) {
+  for (var i = 0; i < tr.length; i++) {
     tr[i].style.display = "none";
   }
 
-  for (let i = (page - 1) * trPerPage; i < (page * trPerPage); i++) {
-    if (tr[i] !== undefined) {
-      tr[i].style.display = 'table-row';
+  for (var _i = (page - 1) * trPerPage; _i < page * trPerPage; _i++) {
+    if (tr[_i] !== undefined) {
+      tr[_i].style.display = 'table-row';
     }
   }
-
 
   if (page === 1) {
     btnPrev.style.visibility = "hidden";
@@ -176,7 +166,7 @@ function changePage(page) {
 }
 
 function numPages() {
-  let tr = tableBody.querySelectorAll('tr');
+  var tr = tableBody.querySelectorAll('tr');
   return Math.ceil(tr.length / trPerPage);
 }
 

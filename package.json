@@ -1,0 +1,27 @@
+{
+  "name": "ES6",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "build": "babel app.js -d dist --presets es2015",
+    "watch": "babel app.js -d dist --presets es2015 -w"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-core": "^6.26.0",
+    "babel-polyfill": "^6.9.0",
+    "babel-preset-es2015": "^6.24.1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/karachev/test-segmento.git"
+  },
+  "bugs": {
+    "url": "https://github.com/karachev/test-segmento/issues"
+  },
+  "homepage": "https://github.com/karachev/test-segmento#readme",
+  "description": ""
+}
