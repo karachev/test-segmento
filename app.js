@@ -21,7 +21,7 @@ changePage(currentPage);
 
 table.addEventListener('click', function (evt) {
   if (evt.target.tagName !== 'TH') return;
-  sortGrid(evt.target.cellIndex, evt.target.getAttribute('data-type'));
+  sortGrid(evt.target.cellIndex, evt.target);
 });
 
 buttonAdd.addEventListener('click', function () {
@@ -54,17 +54,31 @@ function sortGrid(colNum, type) {
   let rowsArray = [].slice.call(tableBody.rows);
   let compare;
 
-  switch (type) {
-    case 'id':
+  switch (type.getAttribute('data-type')) {
+    case 'id-up':
       compare = function (rowA, rowB) {
         return rowA.cells[colNum].children[0].value - rowB.cells[colNum].children[0].value;
       };
+      type.setAttribute('data-type', 'id-down');
       break;
-    case 'amount':
+    case 'id-down':
+        compare = function (rowA, rowB) {
+            return rowB.cells[colNum].children[0].value - rowA.cells[colNum].children[0].value;
+        };
+        type.setAttribute('data-type', 'id-up');
+        break;
+    case 'amount-up':
       compare = function (rowA, rowB) {
         return rowA.cells[colNum].children[0].value - rowB.cells[colNum].children[0].value;
       };
+      type.setAttribute('data-type', 'amount-down');
       break;
+    case 'amount-down':
+        compare = function (rowA, rowB) {
+          return rowB.cells[colNum].children[0].value - rowA.cells[colNum].children[0].value;
+        };
+        type.setAttribute('data-type', 'amount-up');
+        break;
   }
 
   rowsArray.sort(compare);
