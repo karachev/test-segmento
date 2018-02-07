@@ -14,7 +14,7 @@ let trPerPage = 10;
 
 const MAX_LENGTH_COMMENT = 512;
 
-showLocalStorage();
+createTable();
 getBalance();
 changePage(currentPage);
 
@@ -97,9 +97,9 @@ function validationComment() {
     } else {
       balances[i].classList.remove('no-validate');
       if (i < 10) {
-        localStorage.setItem('balance0' + `${i}`, balances[i].value);
+        window.localStorage.setItem('balance0' + `${i}`, balances[i].value);
       } else {
-        localStorage.setItem('balance' + `${i}`, balances[i].value);
+        window.localStorage.setItem('balance' + `${i}`, balances[i].value);
       }
     }
     if (comment[i].value === "" ||
@@ -108,35 +108,21 @@ function validationComment() {
     } else {
       comment[i].classList.remove('no-validate');
       if (i < 10) {
-        localStorage.setItem('comment0' + `${i}`, comment[i].value);
+        window.localStorage.setItem('comment0' + `${i}`, comment[i].value);
       } else {
-        localStorage.setItem('comment' + `${i}`, comment[i].value);
+        window.localStorage.setItem('comment' + `${i}`, comment[i].value);
       }
     }
   }
 }
 
-function showLocalStorage() {
-  if (localStorage.length > 0) {
-    let countID = 0;
-    for (let i = 0; i < localStorage.length / 2; i++) {
-      let balance = localStorage.key(i);
-      let comment = localStorage.key(localStorage.length / 2 + i);
-      countID++;
-      let tr = document.createElement('tr');
-      tr.innerHTML = `<td><input title=\"id\" type=\"number\" value=\"${countID}\" disabled></td>` +
-        `<td><input title=\"Количество средств\" class=\"balance\" type=\"number\" value=\"${localStorage.getItem(balance)}\"></td>` +
-        `<td><input title=\"Комментарий\" class=\"comment\" type=\"text\" value=\"${localStorage.getItem(comment)}\" maxlength=\"512\"></td>`;
-      tableBody.appendChild(tr);
-    }
-  } else {
-    for (let i = 1; i <= 3; i++) { // Наичнается с единицы, чтобы id и balance != 0
-      let initialData = document.createElement('tr');
-      initialData.innerHTML = `<td><input title=\"id\" type=\"number\" value=\"${i}\" disabled></td>` +
-        `<td><input title=\"Количество средств\" class=\"balance\" type=\"number\" value=\"${10 * i}\"></td>` +
-        `<td><input title=\"Комментарий\" class=\"comment\" type=\"text\" value=\"Комментарий\" maxlength=\"512\"></td>`;
-      tableBody.appendChild(initialData);
-    }
+function createTable() {
+  for (let i = 1; i <= 15; i++) { // Наичнается с единицы, чтобы id и balance != 0
+    let initialData = document.createElement('tr');
+    initialData.innerHTML = `<td><input title=\"id\" type=\"number\" value=\"${i}\" disabled></td>` +
+      `<td><input title=\"Количество средств\" class=\"balance\" type=\"number\" value=\"${10 * i}\"></td>` +
+      `<td><input title=\"Комментарий\" class=\"comment\" type=\"text\" value=\"Комментарий\" maxlength=\"512\"></td>`;
+    tableBody.appendChild(initialData);
   }
 }
 
