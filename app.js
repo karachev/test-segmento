@@ -1,6 +1,7 @@
 'use strict';
 
 let buttonAdd = document.querySelector('.button-add');
+buttonAdd.setAttribute('disabled', 'true');
 let tableBody = document.querySelector('tbody');
 let result = document.querySelector('#result');
 let balances = document.querySelectorAll('.balance');
@@ -142,6 +143,7 @@ function changePage(page) {
     }
   }
 
+
   if (page === 1) {
     btnPrev.style.visibility = "hidden";
   } else {
@@ -150,8 +152,10 @@ function changePage(page) {
 
   if (page === numPages()) {
     btnNext.style.visibility = "hidden";
+    buttonAdd.removeAttribute('disabled');
   } else {
     btnNext.style.visibility = "visible";
+    buttonAdd.setAttribute('disabled', 'true');
   }
 }
 
@@ -160,11 +164,11 @@ function numPages() {
   return Math.ceil(tr.length / trPerPage);
 }
 
-// TODO Записей больше 10, нужно придумать как перезагрузить
 // TODO стоит ли сделать реализацию подсказки валидации
 // TODO Сохранение состояния сортировки в url. Для возможности обмена ссылкой с заданной сортировкой
 // TODO Кроссбраузерность и адаптивность
-// TODO Адптивность - Babel и полифилл
 // TODO подумать на счёт кнопки валидации
 // TODO добавить комментарии с помощью JSDoc
 // TODO возможно стоит разбить по файлам
+// TODO полифил фойл
+// TODO как структуру документов сделать
