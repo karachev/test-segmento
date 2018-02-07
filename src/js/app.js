@@ -11,7 +11,6 @@ let btnPrev = document.querySelector('#btn-prev');
 let currentPage = 1;
 let trPerPage = 10;
 
-
 const MAX_LENGTH_COMMENT = 512;
 
 createTable();
