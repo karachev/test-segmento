@@ -21,8 +21,13 @@ changePage(currentPage);
 changeHash(location.hash);
 
 function changeHash(hash) {
-  var target = table.querySelector('' + hash);
-  console.log(target);
+  if (hash !== '') {
+    var arr = hash.split('');
+    arr.splice(0, 1);
+    hash = arr.join('');
+    var target = table.querySelector('#' + ('' + hash));
+    sortGrid(target.cellIndex, target);
+  }
 }
 
 table.addEventListener('click', function (evt) {
