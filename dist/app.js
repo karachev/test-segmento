@@ -57,24 +57,28 @@ function sortGrid(colNum, type) {
         return rowA.cells[colNum].children[0].value - rowB.cells[colNum].children[0].value;
       };
       type.setAttribute('data-type', 'id-down');
+      location.hash = 'id-down';
       break;
     case 'id-down':
       compare = function compare(rowA, rowB) {
         return rowB.cells[colNum].children[0].value - rowA.cells[colNum].children[0].value;
       };
       type.setAttribute('data-type', 'id-up');
+      location.hash = 'id-up';
       break;
     case 'amount-up':
       compare = function compare(rowA, rowB) {
         return rowA.cells[colNum].children[0].value - rowB.cells[colNum].children[0].value;
       };
       type.setAttribute('data-type', 'amount-down');
+      location.hash = 'amount-down';
       break;
     case 'amount-down':
       compare = function compare(rowA, rowB) {
         return rowB.cells[colNum].children[0].value - rowA.cells[colNum].children[0].value;
       };
       type.setAttribute('data-type', 'amount-up');
+      location.hash = 'amount-up';
       break;
   }
 
@@ -173,6 +177,5 @@ function numPages() {
 // TODO Кроссбраузерность и адаптивность
 // TODO подумать на счёт кнопки валидации
 // TODO добавить комментарии с помощью JSDoc
-// TODO возможно стоит разбить по файлам
 // TODO полифил фойл
 // TODO как структуру документов сделать
