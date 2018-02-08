@@ -11,12 +11,17 @@ var btnNext = document.querySelector('#btn-next');
 var btnPrev = document.querySelector('#btn-prev');
 var currentPage = 1;
 var trPerPage = 10;
+location.hash = "id-down";
 
 var MAX_LENGTH_COMMENT = 512;
 
 createTable();
 getBalance();
 changePage(currentPage);
+
+changeHash(location.hash);
+
+function changeHash(hash) {}
 
 table.addEventListener('click', function (evt) {
   if (evt.target.tagName !== 'TH') return;

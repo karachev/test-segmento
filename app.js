@@ -11,12 +11,19 @@ let btnNext = document.querySelector('#btn-next');
 let btnPrev = document.querySelector('#btn-prev');
 let currentPage = 1;
 let trPerPage = 10;
+location.hash = "id-down";
 
 const MAX_LENGTH_COMMENT = 512;
 
 createTable();
 getBalance();
 changePage(currentPage);
+
+changeHash(location.hash);
+
+function changeHash(hash) {
+
+}
 
 
 table.addEventListener('click', function (evt) {
