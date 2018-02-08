@@ -20,19 +20,9 @@ changePage(currentPage);
 
 changeHash(location.hash);
 
-function changeHash(hash) {
-  if (hash !== '') {
-    var arr = hash.split('');
-    arr.splice(0, 1);
-    hash = arr.join('');
-    var target = table.querySelector('#' + ('' + hash));
-    sortGrid(target.cellIndex, target);
-  }
-}
-
 table.addEventListener('click', function (evt) {
   if (evt.target.tagName !== 'TH') return;
-  sortGrid(evt.target.cellIndex, evt.target);
+  sortGrid(evt.target.cellIndex, evt.target, evt.target.id);
 });
 
 buttonAdd.addEventListener('click', function () {
@@ -59,17 +49,32 @@ btnNext.addEventListener('click', function (evt) {
   changeNextPage();
 });
 
-function sortGrid(colNum, type) {
+function changeHash(hash) {
+  if (hash !== '') {
+    var arr = hash.split('');
+    arr.splice(0, 1);
+    hash = arr.join('');
+    if (hash === 'id-up' || hash === 'id-down') {
+      var target = table.querySelector('#id-up');
+      sortGrid(0, target, hash);
+    }
+    if (hash === 'amount-up' || hash === 'amount-down') {
+      var _target = table.querySelector('#amount-up');
+      sortGrid(1, _target, hash);
+    }
+  }
+}
+
+function sortGrid(colNum, type, hash) {
   var rowsArray = [].slice.call(tableBody.rows);
   var compare = void 0;
 
-  switch (type.id) {
+  switch (hash) {
     case 'id-up':
       compare = function compare(rowA, rowB) {
         return rowA.cells[colNum].children[0].value - rowB.cells[colNum].children[0].value;
       };
       type.id = 'id-down';
-      // type.setAttribute('data-type', 'id-down');
       location.hash = 'id-down';
       break;
     case 'id-down':
@@ -77,7 +82,6 @@ function sortGrid(colNum, type) {
         return rowB.cells[colNum].children[0].value - rowA.cells[colNum].children[0].value;
       };
       type.id = 'id-up';
-      // type.setAttribute('data-type', 'id-up');
       location.hash = 'id-up';
       break;
     case 'amount-up':
@@ -85,7 +89,6 @@ function sortGrid(colNum, type) {
         return rowA.cells[colNum].children[0].value - rowB.cells[colNum].children[0].value;
       };
       type.id = 'amount-down';
-      // type.setAttribute('data-type', 'amount-down');
       location.hash = 'amount-down';
       break;
     case 'amount-down':
@@ -93,7 +96,6 @@ function sortGrid(colNum, type) {
         return rowB.cells[colNum].children[0].value - rowA.cells[colNum].children[0].value;
       };
       type.id = 'amount-up';
-      // type.setAttribute('data-type', 'amount-up');
       location.hash = 'amount-up';
       break;
   }
