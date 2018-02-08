@@ -82,12 +82,10 @@ function sortGrid(colNum, type) {
   }
 
   rowsArray.sort(compare);
-  // changePage();
   for (let i = 0; i < rowsArray.length; i++) {
     tableBody.appendChild(rowsArray[i]);
-    rowsArray[i].style.display = 'table-row'; //?
   }
-  changePrevPage(); //?
+  changePage(1);
 }
 
 function getBalance() {
