@@ -11,7 +11,6 @@ var btnNext = document.querySelector('#btn-next');
 var btnPrev = document.querySelector('#btn-prev');
 var currentPage = 1;
 var trPerPage = 10;
-location.hash = "id-down";
 
 var MAX_LENGTH_COMMENT = 512;
 
@@ -21,7 +20,10 @@ changePage(currentPage);
 
 changeHash(location.hash);
 
-function changeHash(hash) {}
+function changeHash(hash) {
+  var target = table.querySelector('' + hash);
+  console.log(target);
+}
 
 table.addEventListener('click', function (evt) {
   if (evt.target.tagName !== 'TH') return;
@@ -56,33 +58,37 @@ function sortGrid(colNum, type) {
   var rowsArray = [].slice.call(tableBody.rows);
   var compare = void 0;
 
-  switch (type.getAttribute('data-type')) {
+  switch (type.id) {
     case 'id-up':
       compare = function compare(rowA, rowB) {
         return rowA.cells[colNum].children[0].value - rowB.cells[colNum].children[0].value;
       };
-      type.setAttribute('data-type', 'id-down');
+      type.id = 'id-down';
+      // type.setAttribute('data-type', 'id-down');
       location.hash = 'id-down';
       break;
     case 'id-down':
       compare = function compare(rowA, rowB) {
         return rowB.cells[colNum].children[0].value - rowA.cells[colNum].children[0].value;
       };
-      type.setAttribute('data-type', 'id-up');
+      type.id = 'id-up';
+      // type.setAttribute('data-type', 'id-up');
       location.hash = 'id-up';
       break;
     case 'amount-up':
       compare = function compare(rowA, rowB) {
         return rowA.cells[colNum].children[0].value - rowB.cells[colNum].children[0].value;
       };
-      type.setAttribute('data-type', 'amount-down');
+      type.id = 'amount-down';
+      // type.setAttribute('data-type', 'amount-down');
       location.hash = 'amount-down';
       break;
     case 'amount-down':
       compare = function compare(rowA, rowB) {
         return rowB.cells[colNum].children[0].value - rowA.cells[colNum].children[0].value;
       };
-      type.setAttribute('data-type', 'amount-up');
+      type.id = 'amount-up';
+      // type.setAttribute('data-type', 'amount-up');
       location.hash = 'amount-up';
       break;
   }

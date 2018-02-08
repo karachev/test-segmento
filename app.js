@@ -11,7 +11,6 @@ let btnNext = document.querySelector('#btn-next');
 let btnPrev = document.querySelector('#btn-prev');
 let currentPage = 1;
 let trPerPage = 10;
-location.hash = "id-down";
 
 const MAX_LENGTH_COMMENT = 512;
 
@@ -22,7 +21,8 @@ changePage(currentPage);
 changeHash(location.hash);
 
 function changeHash(hash) {
-
+  let target = table.querySelector(`${hash}`);
+  console.log(target);
 }
 
 
@@ -61,33 +61,37 @@ function sortGrid(colNum, type) {
   let rowsArray = [].slice.call(tableBody.rows);
   let compare;
 
-  switch (type.getAttribute('data-type')) {
+  switch (type.id) {
     case 'id-up':
       compare = function (rowA, rowB) {
         return rowA.cells[colNum].children[0].value - rowB.cells[colNum].children[0].value;
       };
-      type.setAttribute('data-type', 'id-down');
+      type.id = 'id-down';
+      // type.setAttribute('data-type', 'id-down');
       location.hash = 'id-down';
       break;
     case 'id-down':
       compare = function (rowA, rowB) {
         return rowB.cells[colNum].children[0].value - rowA.cells[colNum].children[0].value;
       };
-      type.setAttribute('data-type', 'id-up');
+      type.id = 'id-up';
+      // type.setAttribute('data-type', 'id-up');
       location.hash = 'id-up';
       break;
     case 'amount-up':
       compare = function (rowA, rowB) {
         return rowA.cells[colNum].children[0].value - rowB.cells[colNum].children[0].value;
       };
-      type.setAttribute('data-type', 'amount-down');
+      type.id = 'amount-down';
+      // type.setAttribute('data-type', 'amount-down');
       location.hash = 'amount-down';
       break;
     case 'amount-down':
       compare = function (rowA, rowB) {
         return rowB.cells[colNum].children[0].value - rowA.cells[colNum].children[0].value;
       };
-      type.setAttribute('data-type', 'amount-up');
+      type.id = 'amount-up';
+      // type.setAttribute('data-type', 'amount-up');
       location.hash = 'amount-up';
       break;
   }
