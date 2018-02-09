@@ -25,7 +25,8 @@ table.addEventListener('click', function (evt) {
   sortGrid(evt.target.cellIndex, evt.target, evt.target.id);
 });
 
-buttonAdd.addEventListener('click', function () {
+buttonAdd.addEventListener('click', function (evt) {
+  evt.preventDefault();
   validationComment();
   if (!document.querySelector('.no-validate')) {
     countID = tableBody.querySelectorAll('tr').length;
@@ -79,29 +80,29 @@ function sortGrid(colNum, type) {
       compare = function (rowA, rowB) {
         return rowA.cells[colNum].children[0].value - rowB.cells[colNum].children[0].value;
       };
+      location.hash = type.id;
       type.id = 'id-down';
-      location.hash = 'id-up';
       break;
     case 'id-down':
       compare = function (rowA, rowB) {
         return rowB.cells[colNum].children[0].value - rowA.cells[colNum].children[0].value;
       };
+      location.hash = type.id;
       type.id = 'id-up';
-      location.hash = 'id-down';
       break;
     case 'amount-up':
       compare = function (rowA, rowB) {
         return rowA.cells[colNum].children[0].value - rowB.cells[colNum].children[0].value;
       };
+      location.hash = type.id;
       type.id = 'amount-down';
-      location.hash = 'amount-up';
       break;
     case 'amount-down':
       compare = function (rowA, rowB) {
         return rowB.cells[colNum].children[0].value - rowA.cells[colNum].children[0].value;
       };
+      location.hash = type.id;
       type.id = 'amount-up';
-      location.hash = 'amount-down';
       break;
   }
 
@@ -145,7 +146,7 @@ function validationComment() {
 }
 
 function createTable() {
-  for (let i = 1; i <= 15; i++) { // Наичнается с единицы, чтобы id и balance != 0
+  for (let i = 1; i <= 15; i++) { // Начинается с единицы, чтобы id и balance != 0
     let initialData = document.createElement('tr');
     let valueTd = (i % 2) ? i : i * 10;
     initialData.innerHTML = `<td><input title=\"id\" type=\"number\" value=\"${i}\" disabled></td>` +
@@ -202,10 +203,5 @@ function numPages() {
   return Math.ceil(tr.length / trPerPage);
 }
 
-// TODO стоит ли сделать реализацию подсказки валидации
-// TODO Сохранение состояния сортировки в url. Для возможности обмена ссылкой с заданной сортировкой
-// TODO Кроссбраузерность и адаптивность
-// TODO подумать на счёт кнопки валидации
 // TODO добавить комментарии с помощью JSDoc
-// TODO полифил фойл
 // TODO как структуру документов сделать
