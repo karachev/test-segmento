@@ -53,26 +53,20 @@ btnNext.addEventListener('click', function (evt) {
 
 function changeHash(hash) {
   if (hash !== '') {
+    let target;
     let arr = hash.split('');
     arr.splice(0, 1);
     hash = arr.join('');
-    if (hash === 'id-up') {
-      let target = table.querySelector(`#id-up`);
+    if (hash === 'id-up' || hash === 'id-down') {
+      target = table.querySelector(`#id-up`);
+      target.id = hash;
       sortGrid(0, target);
-    } else if (hash === 'id-down') {
-      let target = table.querySelector(`#id-down`);
-      sortGrid(0, target);
-    } else if (hash === 'amount-up') {
-      let target = table.querySelector(`#amount-up`);
-      sortGrid(1, target);
-    } else if (hash === 'amount-down') {
-      let target = table.querySelector(`#amount-down`);
+    }
+    if (hash === 'amount-up' || hash === 'amount-down') {
+      target = table.querySelector(`#amount-up`);
+      target.id = hash;
       sortGrid(1, target);
     }
-    // if (hash === 'amount-up' || hash === 'amount-down') {
-    //   let target = table.querySelector(`#amount-up`);
-    //   sortGrid(1, target);
-    // }
   }
 }
 
