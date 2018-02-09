@@ -144,8 +144,9 @@ function validationComment() {
 function createTable() {
   for (let i = 1; i <= 15; i++) { // Наичнается с единицы, чтобы id и balance != 0
     let initialData = document.createElement('tr');
+    let valueTd = (i % 2) ? i : i * 100;
     initialData.innerHTML = `<td><input title=\"id\" type=\"number\" value=\"${i}\" disabled></td>` +
-      `<td><input title=\"Количество средств\" class=\"balance\" type=\"number\" value=\"${Math.floor(Math.random() * 100)}\"></td>` +
+      `<td><input title=\"Количество средств\" class=\"balance\" type=\"number\" value=\"${valueTd}\"></td>` +
       `<td><input title=\"Комментарий\" class=\"comment\" type=\"text\" value=\"Комментарий\" maxlength=\"512\"></td>`;
     tableBody.appendChild(initialData);
   }

@@ -138,7 +138,8 @@ function createTable() {
   for (var i = 1; i <= 15; i++) {
     // Наичнается с единицы, чтобы id и balance != 0
     var initialData = document.createElement('tr');
-    initialData.innerHTML = '<td><input title="id" type="number" value="' + i + '" disabled></td>' + ('<td><input title="\u041A\u043E\u043B\u0438\u0447\u0435\u0441\u0442\u0432\u043E \u0441\u0440\u0435\u0434\u0441\u0442\u0432" class="balance" type="number" value="' + Math.floor(Math.random() * 100) + '"></td>') + '<td><input title="\u041A\u043E\u043C\u043C\u0435\u043D\u0442\u0430\u0440\u0438\u0439" class="comment" type="text" value="\u041A\u043E\u043C\u043C\u0435\u043D\u0442\u0430\u0440\u0438\u0439" maxlength="512"></td>';
+    var valueTd = i % 2 ? i : i * 100;
+    initialData.innerHTML = '<td><input title="id" type="number" value="' + i + '" disabled></td>' + ('<td><input title="\u041A\u043E\u043B\u0438\u0447\u0435\u0441\u0442\u0432\u043E \u0441\u0440\u0435\u0434\u0441\u0442\u0432" class="balance" type="number" value="' + valueTd + '"></td>') + '<td><input title="\u041A\u043E\u043C\u043C\u0435\u043D\u0442\u0430\u0440\u0438\u0439" class="comment" type="text" value="\u041A\u043E\u043C\u043C\u0435\u043D\u0442\u0430\u0440\u0438\u0439" maxlength="512"></td>';
     tableBody.appendChild(initialData);
   }
 }
