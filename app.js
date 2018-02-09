@@ -62,43 +62,43 @@ function changeHash(hash) {
     }
     if (hash === 'amount-up' || hash === 'amount-down') {
       let target = table.querySelector(`#amount-up`);
-      sortGrid(1, target, hash);
+      sortGrid(1, target);
     }
   }
 }
 
-function sortGrid(colNum, type, hash) {
+function sortGrid(colNum, type) {
   let rowsArray = [].slice.call(tableBody.rows);
   let compare;
 
-  switch (hash) {
+  switch (type.id) {
     case 'id-up':
       compare = function (rowA, rowB) {
         return rowA.cells[colNum].children[0].value - rowB.cells[colNum].children[0].value;
       };
       type.id = 'id-down';
-      location.hash = 'id-down';
+      location.hash = 'id-up';
       break;
     case 'id-down':
       compare = function (rowA, rowB) {
         return rowB.cells[colNum].children[0].value - rowA.cells[colNum].children[0].value;
       };
       type.id = 'id-up';
-      location.hash = 'id-up';
+      location.hash = 'id-down';
       break;
     case 'amount-up':
       compare = function (rowA, rowB) {
         return rowA.cells[colNum].children[0].value - rowB.cells[colNum].children[0].value;
       };
       type.id = 'amount-down';
-      location.hash = 'amount-down';
+      location.hash = 'amount-up';
       break;
     case 'amount-down':
       compare = function (rowA, rowB) {
         return rowB.cells[colNum].children[0].value - rowA.cells[colNum].children[0].value;
       };
       type.id = 'amount-up';
-      location.hash = 'amount-up';
+      location.hash = 'amount-down';
       break;
   }
 
