@@ -56,14 +56,23 @@ function changeHash(hash) {
     let arr = hash.split('');
     arr.splice(0, 1);
     hash = arr.join('');
-    if (hash === 'id-up' || hash === 'id-down') {
+    if (hash === 'id-up') {
       let target = table.querySelector(`#id-up`);
-      sortGrid(0, target, hash);
-    }
-    if (hash === 'amount-up' || hash === 'amount-down') {
+      sortGrid(0, target);
+    } else if (hash === 'id-down') {
+      let target = table.querySelector(`#id-down`);
+      sortGrid(0, target);
+    } else if (hash === 'amount-up') {
       let target = table.querySelector(`#amount-up`);
       sortGrid(1, target);
+    } else if (hash === 'amount-down') {
+      let target = table.querySelector(`#amount-down`);
+      sortGrid(1, target);
     }
+    // if (hash === 'amount-up' || hash === 'amount-down') {
+    //   let target = table.querySelector(`#amount-up`);
+    //   sortGrid(1, target);
+    // }
   }
 }
 

@@ -54,14 +54,23 @@ function changeHash(hash) {
     var arr = hash.split('');
     arr.splice(0, 1);
     hash = arr.join('');
-    if (hash === 'id-up' || hash === 'id-down') {
+    if (hash === 'id-up') {
       var target = table.querySelector('#id-up');
-      sortGrid(0, target, hash);
+      sortGrid(0, target);
+    } else if (hash === 'id-down') {
+      var _target = table.querySelector('#id-down');
+      sortGrid(0, _target);
+    } else if (hash === 'amount-up') {
+      var _target2 = table.querySelector('#amount-up');
+      sortGrid(1, _target2);
+    } else if (hash === 'amount-down') {
+      var _target3 = table.querySelector('#amount-down');
+      sortGrid(1, _target3);
     }
-    if (hash === 'amount-up' || hash === 'amount-down') {
-      var _target = table.querySelector('#amount-up');
-      sortGrid(1, _target);
-    }
+    // if (hash === 'amount-up' || hash === 'amount-down') {
+    //   let target = table.querySelector(`#amount-up`);
+    //   sortGrid(1, target);
+    // }
   }
 }
 
