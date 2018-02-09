@@ -17,14 +17,15 @@ const MAX_LENGTH_COMMENT = 512;
 createTable();
 getBalance();
 changePage(currentPage);
+syncHash(location.hash);
 
-changeHash(location.hash);
-
+/** `Слушает` клики на заголовки таблицы */
 table.addEventListener('click', function (evt) {
   if (evt.target.tagName !== 'TH') return;
   sortGrid(evt.target.cellIndex, evt.target, evt.target.id);
 });
 
+/** `Слушает` клики на кнопку добавления нового поля */
 buttonAdd.addEventListener('click', function (evt) {
   evt.preventDefault();
   validationComment();
@@ -42,17 +43,35 @@ buttonAdd.addEventListener('click', function (evt) {
   }
 });
 
+/** `Слушает` клики на кнопку с предыдущими страницами */
 btnPrev.addEventListener('click', function (evt) {
   evt.preventDefault();
   changePrevPage();
 });
 
+/** `Слушает` клики на кнопку со следующими страницами */
 btnNext.addEventListener('click', function (evt) {
   evt.preventDefault();
   changeNextPage();
 });
 
-function changeHash(hash) {
+/** Создает данные в таблице */
+function createTable() {
+  for (let i = 1; i <= 15; i++) { // Начинается с единицы, чтобы id и balance != 0
+    let initialData = document.createElement('tr');
+    let valueTd = (i % 2) ? i : i * 10;
+    initialData.innerHTML = `<td><input title=\"id\" type=\"number\" value=\"${i}\" disabled></td>` +
+      `<td><input title=\"Количество средств\" class=\"balance\" type=\"number\" value=\"${valueTd}\"></td>` +
+      `<td><input title=\"Комментарий\" class=\"comment\" type=\"text\" value=\"Комментарий\" maxlength=\"512\"></td>`;
+    tableBody.appendChild(initialData);
+  }
+}
+
+/**
+ * При открытие страницы синхронизирует сортировку
+ * @param {String} hash - входные данные в URL
+ * */
+function syncHash(hash) {
   if (hash !== '') {
     let target;
     let arr = hash.split('');
@@ -71,6 +90,11 @@ function changeHash(hash) {
   }
 }
 
+/**
+ * Сортирует таблицу
+ * @param {Number} colNum - номер столбца
+ * @param {Object} type - по какому параметру сортируем
+ * */
 function sortGrid(colNum, type) {
   let rowsArray = [].slice.call(tableBody.rows);
   let compare;
@@ -113,6 +137,7 @@ function sortGrid(colNum, type) {
   changePage(1);
 }
 
+/** Выводит итоговый баланс */
 function getBalance() {
   let resultValue = 0;
   balances = document.querySelectorAll('.balance');
@@ -122,6 +147,7 @@ function getBalance() {
   result.innerHTML = resultValue.toString();
 }
 
+/** Валидирует содержимое ячеек */
 function validationComment() {
   let tr = document.querySelectorAll('tr');
   balances = document.querySelectorAll('.balance');
@@ -145,17 +171,7 @@ function validationComment() {
   }
 }
 
-function createTable() {
-  for (let i = 1; i <= 15; i++) { // Начинается с единицы, чтобы id и balance != 0
-    let initialData = document.createElement('tr');
-    let valueTd = (i % 2) ? i : i * 10;
-    initialData.innerHTML = `<td><input title=\"id\" type=\"number\" value=\"${i}\" disabled></td>` +
-      `<td><input title=\"Количество средств\" class=\"balance\" type=\"number\" value=\"${valueTd}\"></td>` +
-      `<td><input title=\"Комментарий\" class=\"comment\" type=\"text\" value=\"Комментарий\" maxlength=\"512\"></td>`;
-    tableBody.appendChild(initialData);
-  }
-}
-
+/** Переключает на предыдущую страницу */
 function changePrevPage() {
   if (currentPage > 1) {
     currentPage--;
@@ -163,6 +179,7 @@ function changePrevPage() {
   }
 }
 
+/** Переключает на следующую страницу */
 function changeNextPage() {
   if (currentPage < numPages()) {
     currentPage++;
@@ -170,6 +187,9 @@ function changeNextPage() {
   }
 }
 
+/** Меняет страницу и отображает контент на ней
+ * @param {Number} page - номер страницы
+ * */
 function changePage(page) {
   let tr = tableBody.querySelectorAll('tr');
 
@@ -198,10 +218,8 @@ function changePage(page) {
   }
 }
 
+/** Вычисляет количество всех страниц */
 function numPages() {
   let tr = tableBody.querySelectorAll('tr');
   return Math.ceil(tr.length / trPerPage);
 }
-
-// TODO добавить комментарии с помощью JSDoc
-// TODO как структуру документов сделать
