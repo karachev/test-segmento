@@ -139,9 +139,10 @@ function getBalance() {
   var resultValue = 0;
   balances = document.querySelectorAll('.balance');
   for (var i = 0; i < balances.length; i++) {
+    balances[i].value = parseFloat(balances[i].value).toFixed(2);
     resultValue += +balances[i].value;
   }
-  result.innerHTML = resultValue.toString();
+  result.innerHTML = resultValue.toFixed(2);
 }
 
 /** Валидирует содержимое ячеек */
