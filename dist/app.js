@@ -1,7 +1,6 @@
 'use strict';
 
 var buttonAdd = document.querySelector('.button-add');
-buttonAdd.setAttribute('disabled', 'true');
 var tableBody = document.querySelector('tbody');
 var result = document.querySelector('#result');
 var balances = document.querySelectorAll('.balance');
@@ -11,8 +10,9 @@ var btnNext = document.querySelector('#btn-next');
 var btnPrev = document.querySelector('#btn-prev');
 var currentPage = 1;
 var trPerPage = 10;
-
 var MAX_LENGTH_COMMENT = 512;
+
+buttonAdd.setAttribute('disabled', 'true');
 
 createTable();
 getBalance();
