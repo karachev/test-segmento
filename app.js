@@ -34,7 +34,7 @@ buttonAdd.addEventListener('click', function (evt) {
     countID++;
     let tr = document.createElement('tr');
     tr.innerHTML = `<td><input title=\"id\" type=\"number\" value=\"${countID}\" disabled></td>` +
-      `<td><input title=\"Количество средств\" class=\"balance\" type=\"number\" value=\"\"></td>` +
+      `<td><input title=\"Количество средств\" class=\"balance\" type=\"number\" step=\"0.01"\ value=\"\"></td>` +
       `<td><input title=\"Комментарий\" class=\"comment\" type=\"text\" value=\"\" maxlength=\"512\"></td>`;
     tableBody.appendChild(tr);
     tr.querySelector('.balance').focus();
@@ -61,7 +61,7 @@ function createTable() {
     let initialData = document.createElement('tr');
     let valueTd = (i % 2) ? i : i * 10;
     initialData.innerHTML = `<td><input title=\"id\" type=\"number\" value=\"${i}\" disabled></td>` +
-      `<td><input title=\"Количество средств\" class=\"balance\" type=\"number\" value=\"${valueTd}\"></td>` +
+      `<td><input title=\"Количество средств\" class=\"balance\" type=\"number\" step=\"0.01\" value=\"${valueTd}\"></td>` +
       `<td><input title=\"Комментарий\" class=\"comment\" type=\"text\" value=\"Комментарий\" maxlength=\"512\"></td>`;
     tableBody.appendChild(initialData);
   }
@@ -142,7 +142,9 @@ function getBalance() {
   let resultValue = 0;
   balances = document.querySelectorAll('.balance');
   for (let i = 0; i < balances.length; i++) {
-    resultValue += +balances[i].value;
+    if (balances[i].value !== "") {
+      resultValue += Math.round(parseFloat(balances[i].value) * 100) / 100;
+    }
   }
   result.innerHTML = resultValue.toString();
 }
@@ -153,11 +155,12 @@ function validationComment() {
   balances = document.querySelectorAll('.balance');
   let comment = document.querySelectorAll('.comment');
   for (let i = 0; i < tr.length - 1; i++) {
-    if (balances[i].value === "0" ||
+    balances[i].value = Math.round(parseFloat(balances[i].value) * 100) / 100;
+    if (balances[i].value === 0 ||
       balances[i].value === "" ||
       isNaN(balances[i].value) ||
-      +balances[i].value > 1000 ||
-      +balances[i].value < -1000) {
+      balances[i].value > 1000 ||
+      balances[i].value < -1000) {
       balances[i].classList.add('no-validate');
     } else {
       balances[i].classList.remove('no-validate');

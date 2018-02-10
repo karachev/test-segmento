@@ -33,7 +33,7 @@ buttonAdd.addEventListener('click', function (evt) {
     countID = tableBody.querySelectorAll('tr').length;
     countID++;
     var tr = document.createElement('tr');
-    tr.innerHTML = '<td><input title="id" type="number" value="' + countID + '" disabled></td>' + '<td><input title="\u041A\u043E\u043B\u0438\u0447\u0435\u0441\u0442\u0432\u043E \u0441\u0440\u0435\u0434\u0441\u0442\u0432" class="balance" type="number" value=""></td>' + '<td><input title="\u041A\u043E\u043C\u043C\u0435\u043D\u0442\u0430\u0440\u0438\u0439" class="comment" type="text" value="" maxlength="512"></td>';
+    tr.innerHTML = '<td><input title="id" type="number" value="' + countID + '" disabled></td>' + '<td><input title="\u041A\u043E\u043B\u0438\u0447\u0435\u0441\u0442\u0432\u043E \u0441\u0440\u0435\u0434\u0441\u0442\u0432" class="balance" type="number" step="0.01" value=""></td>' + '<td><input title="\u041A\u043E\u043C\u043C\u0435\u043D\u0442\u0430\u0440\u0438\u0439" class="comment" type="text" value="" maxlength="512"></td>';
     tableBody.appendChild(tr);
     tr.querySelector('.balance').focus();
 
@@ -59,7 +59,7 @@ function createTable() {
     // Начинается с единицы, чтобы id и balance != 0
     var initialData = document.createElement('tr');
     var valueTd = i % 2 ? i : i * 10;
-    initialData.innerHTML = '<td><input title="id" type="number" value="' + i + '" disabled></td>' + ('<td><input title="\u041A\u043E\u043B\u0438\u0447\u0435\u0441\u0442\u0432\u043E \u0441\u0440\u0435\u0434\u0441\u0442\u0432" class="balance" type="number" value="' + valueTd + '"></td>') + '<td><input title="\u041A\u043E\u043C\u043C\u0435\u043D\u0442\u0430\u0440\u0438\u0439" class="comment" type="text" value="\u041A\u043E\u043C\u043C\u0435\u043D\u0442\u0430\u0440\u0438\u0439" maxlength="512"></td>';
+    initialData.innerHTML = '<td><input title="id" type="number" value="' + i + '" disabled></td>' + ('<td><input title="\u041A\u043E\u043B\u0438\u0447\u0435\u0441\u0442\u0432\u043E \u0441\u0440\u0435\u0434\u0441\u0442\u0432" class="balance" type="number" step="0.01" value="' + valueTd + '"></td>') + '<td><input title="\u041A\u043E\u043C\u043C\u0435\u043D\u0442\u0430\u0440\u0438\u0439" class="comment" type="text" value="\u041A\u043E\u043C\u043C\u0435\u043D\u0442\u0430\u0440\u0438\u0439" maxlength="512"></td>';
     tableBody.appendChild(initialData);
   }
 }
@@ -139,7 +139,9 @@ function getBalance() {
   var resultValue = 0;
   balances = document.querySelectorAll('.balance');
   for (var i = 0; i < balances.length; i++) {
-    resultValue += +balances[i].value;
+    if (balances[i].value !== "") {
+      resultValue += Math.round(parseFloat(balances[i].value) * 100) / 100;
+    }
   }
   result.innerHTML = resultValue.toString();
 }
@@ -150,7 +152,8 @@ function validationComment() {
   balances = document.querySelectorAll('.balance');
   var comment = document.querySelectorAll('.comment');
   for (var i = 0; i < tr.length - 1; i++) {
-    if (balances[i].value === "0" || balances[i].value === "" || isNaN(balances[i].value) || +balances[i].value > 1000 || +balances[i].value < -1000) {
+    balances[i].value = Math.round(parseFloat(balances[i].value) * 100) / 100;
+    if (balances[i].value === 0 || balances[i].value === "" || isNaN(balances[i].value) || balances[i].value > 1000 || balances[i].value < -1000) {
       balances[i].classList.add('no-validate');
     } else {
       balances[i].classList.remove('no-validate');
