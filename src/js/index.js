@@ -78,12 +78,12 @@ function syncHash(hash) {
     arr.splice(0, 1);
     hash = arr.join('');
     if (hash === 'id-up' || hash === 'id-down') {
-      target = table.querySelector(`#id-up`);
+      target = table.querySelector('#id-up');
       target.id = hash;
       sortGrid(0, target);
     }
     if (hash === 'amount-up' || hash === 'amount-down') {
-      target = table.querySelector(`#amount-up`);
+      target = table.querySelector('#amount-up');
       target.id = hash;
       sortGrid(1, target);
     }
@@ -142,7 +142,7 @@ function getBalance() {
   let resultValue = 0;
   balances = document.querySelectorAll('.balance');
   for (let i = 0; i < balances.length; i++) {
-    if (balances[i].value !== "") {
+    if (balances[i].value !== '') {
       resultValue += Math.round(parseFloat(balances[i].value) * 100) / 100;
     }
   }
@@ -157,7 +157,7 @@ function validationComment() {
   for (let i = 0; i < tr.length - 1; i++) {
     balances[i].value = Math.round(parseFloat(balances[i].value) * 100) / 100;
     if (balances[i].value === 0 ||
-      balances[i].value === "" ||
+      balances[i].value === '' ||
       isNaN(balances[i].value) ||
       balances[i].value > 1000 ||
       balances[i].value < -1000) {
@@ -165,7 +165,7 @@ function validationComment() {
     } else {
       balances[i].classList.remove('no-validate');
     }
-    if (comment[i].value === "" ||
+    if (comment[i].value === '' ||
       comment[i].value.length > MAX_LENGTH_COMMENT) {
       comment[i].classList.add('no-validate');
     } else {
@@ -197,7 +197,7 @@ function changePage(page) {
   let tr = tableBody.querySelectorAll('tr');
   
   for (let i = 0; i < tr.length; i++) {
-    tr[i].style.display = "none";
+    tr[i].style.display = 'none';
   }
   
   for (let i = (page - 1) * trPerPage; i < (page * trPerPage); i++) {
@@ -207,16 +207,16 @@ function changePage(page) {
   }
   
   if (page === 1) {
-    btnPrev.style.visibility = "hidden";
+    btnPrev.style.visibility = 'hidden';
   } else {
-    btnPrev.style.visibility = "visible";
+    btnPrev.style.visibility = 'visible';
   }
   
   if (page === numPages()) {
-    btnNext.style.visibility = "hidden";
+    btnNext.style.visibility = 'hidden';
     buttonAdd.removeAttribute('disabled');
   } else {
-    btnNext.style.visibility = "visible";
+    btnNext.style.visibility = 'visible';
     buttonAdd.setAttribute('disabled', 'true');
   }
 }
