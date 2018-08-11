@@ -1,28 +1,80 @@
 {
-  "name": "ES6",
+  "name": "ppc-world",
   "version": "1.0.0",
-  "main": "index.js",
+  "engines": {
+    "node": ">=8.0.0",
+    "npm": ">=2.0.0"
+  },
   "scripts": {
-    "build": "babel app.js -d dist --presets es2015",
-    "watch": "babel app.js -d dist --presets es2015 -w"
+    "test": "jest",
+    "start": "gulp",
+    "build": "gulp build && gulp copy:to-web-folder",
+    "generate-css-report": "node generate-css-report.js",
+    "lint:css": "stylelint 'src/**/*.css'",
+    "lint:css:fix": "npm run lint:css -- --fix"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "dependencies": {
+    "eslint-plugin-mocha": "^5.1.0",
+    "gulp-autoprefixer": "^5.0.0",
+    "gulp-concat": "^2.6.1",
+    "jquery": "^3.2.1",
+    "lodash": "^4.17.4",
+    "normalize.css": "^7.0.0",
+    "safe-buffer": "^5.1.1"
+  },
   "devDependencies": {
-    "babel-cli": "^6.26.0",
+    "@elamajs/stylelint-config-elama": "^1.0.0",
+    "assemble": "^0.24.3",
     "babel-core": "^6.26.0",
-    "babel-polyfill": "^6.9.0",
-    "babel-preset-es2015": "^6.24.1"
+    "babel-eslint": "^8.0.1",
+    "babel-jest": "^20.0.3",
+    "babel-loader": "^7.1.2",
+    "babel-plugin-syntax-dynamic-import": "^6.18.0",
+    "babel-plugin-transform-runtime": "^6.23.0",
+    "babel-polyfill": "^6.26.0",
+    "babel-preset-env": "^1.6.0",
+    "browser-sync": "^2.18.12",
+    "cssnano": "^4.0.3",
+    "gulp": "^3.9.1",
+    "gulp-changed": "^3.1.0",
+    "gulp-cssnano": "^2.1.2",
+    "gulp-autoprefixer": "^5.0.0",
+    "gulp-eslint": "^5.0.0",
+    "gulp-extname": "^0.2.2",
+    "gulp-flatten": "^0.4.0",
+    "gulp-imagemin": "^4.1.0",
+    "gulp-plumber": "^1.1.0",
+    "gulp-plumber-error-handler": "^1.0.0",
+    "gulp-postcss": "^7.0.0",
+    "gulp-sourcemaps": "^2.6.1",
+    "gulp-svg-sprite": "^1.3.7",
+    "handlebars-cond": "^1.0.3",
+    "handlebars-helper-rawinclude": "^1.0.0",
+    "handlebars-helpers": "^0.9.8",
+    "husky": "^0.14.3",
+    "jest": "^20.0.4",
+    "postcss-cssnext": "^3.0.2",
+    "postcss-custom-media": "^6.0.0",
+    "postcss-import": "^11.0.0",
+    "require-dir": "^1.0.0",
+    "run-sequence": "^2.2.0",
+    "stylelint": "^9.3.0",
+    "stylelint-checkstyle-formatter": "^0.1.0",
+    "timer.js": "^1.0.4",
+    "vinyl-buffer": "^1.0.0",
+    "vinyl-source-stream": "^1.1.0",
+    "webpack": "3.6.0",
+    "webpack-stream": "^3.2.0"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/karachev/test-segmento.git"
+  "browserslist": {
+    "production": [
+      "last 2 version",
+      "ie 10+"
+    ],
+    "development": [
+      "last 2 version",
+      "ie 10"
+    ]
   },
-  "bugs": {
-    "url": "https://github.com/karachev/test-segmento/issues"
-  },
-  "homepage": "https://github.com/karachev/test-segmento#readme",
-  "dependencies": {},
-  "description": ""
+  "license": "MIT"
 }
