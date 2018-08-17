@@ -1,6 +1,7 @@
 export default class Table {
-  constructor(rootNode) {
+  constructor(rootNode, balances) {
     this.rootNode = rootNode;
+    this.balances = balances;
   }
   
   init() {
@@ -12,5 +13,17 @@ export default class Table {
         `<td><input title=\"Комментарий\" class=\"comment\" type=\"text\" value=\"Комментарий\" maxlength=\"512\"></td>`;
       this.rootNode.appendChild(initialData);
     }
+  }
+  
+  /** Выводит итоговый баланс */
+  getBalance() {
+    let resultValue = 0;
+    this.balances = document.querySelectorAll('.balance');
+    for (let i = 0; i < this.balances.length; i++) {
+      if (this.balances[i].value !== '') {
+        resultValue += Math.round(parseFloat(this.balances[i].value) * 100) / 100;
+      }
+    }
+    result.innerHTML = resultValue.toString();
   }
 };
