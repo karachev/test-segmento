@@ -16,6 +16,8 @@ td {
 
 button {
   margin: 30px auto;
+  background-color: rgb(216, 216, 216);
+  cursor: pointer;
 }
 
 th {
