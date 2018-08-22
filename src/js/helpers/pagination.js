@@ -59,4 +59,4 @@ export default class Pagination {
     let tr = window.tableBody.querySelectorAll('tr');
     return Math.ceil(tr.length / this.trPerPage);
   }
-};
+}

@@ -2,7 +2,7 @@ import Table from './helpers/table';
 import Pagination from './helpers/pagination';
 import Sorting from './helpers/sorting';
 
-export let tableBody = document.querySelector('tbody');
+window.table = document.querySelector('table');
 window.tableBody = document.querySelector('tbody');
 export let buttonAdd = document.querySelector('.button-add');
 let balances = document.querySelectorAll('.balance');
@@ -14,11 +14,11 @@ export const MAX_LENGTH_COMMENT = 512;
 export let btnPrev = document.querySelector('#btn-prev');
 export let btnNext = document.querySelector('#btn-next');
 
-let table = new Table(tableBody, balances);
+let tableHeart = new Table(balances);
 
-table.init();
+tableHeart.init();
 
-table.getBalance();
+tableHeart.getBalance();
 
 let pagination = new Pagination();
 
@@ -39,7 +39,7 @@ btnNext.addEventListener('click', function (evt) {
 });
 
 /** `Слушает` клики на заголовки таблицы */
-tableBody.addEventListener('click', function (evt) {
+window.tableBody.addEventListener('click', function (evt) {
   if (evt.target.tagName !== 'TH') return;
   Sorting.sortGrid(evt.target.cellIndex, evt.target, evt.target.id);
 });
@@ -47,15 +47,15 @@ tableBody.addEventListener('click', function (evt) {
 /** `Слушает` клики на кнопку добавления нового поля */
 buttonAdd.addEventListener('click', function (evt) {
   evt.preventDefault();
-  table.validationComment();
+  tableHeart.validationComment();
   if (!document.querySelector('.no-validate')) {
-    countID = tableBody.querySelectorAll('tr').length;
+    countID = window.tableBody.querySelectorAll('tr').length;
     countID++;
     let tr = document.createElement('tr');
     tr.innerHTML = `<td><input title=\"id\" type=\"number\" value=\"${countID}\" disabled></td>` +
       `<td><input title=\"Количество средств\" class=\"balance\" type=\"number\" step=\"0.01"\ value=\"\"></td>` +
       `<td><input title=\"Комментарий\" class=\"comment\" type=\"text\" value=\"\" maxlength=\"512\"></td>`;
-    tableBody.appendChild(tr);
+    window.tableBody.appendChild(tr);
     tr.querySelector('.balance').focus();
     
     Table.prototype.getBalance();

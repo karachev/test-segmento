@@ -1,8 +1,7 @@
 import {MAX_LENGTH_COMMENT} from './../index';
 
 export default class Table {
-  constructor(rootNode, balances) {
-    this.rootNode = rootNode;
+  constructor(balances) {
     this.balances = balances;
   }
   
@@ -13,13 +12,15 @@ export default class Table {
       initialData.innerHTML = `<td><input title=\"id\" type=\"number\" value=\"${i}\" disabled></td>` +
         `<td><input title=\"Количество средств\" class=\"balance\" type=\"number\" step=\"0.01\" value=\"${valueTd}\"></td>` +
         `<td><input title=\"Комментарий\" class=\"comment\" type=\"text\" value=\"Комментарий\" maxlength=\"512\"></td>`;
-      this.rootNode.appendChild(initialData);
+      window.tableBody.appendChild(initialData);
     }
   }
   
   /** Выводит итоговый баланс */
   getBalance() {
     let resultValue = 0;
+    let result = document.querySelector('#result');
+    
     this.balances = document.querySelectorAll('.balance');
     for (let i = 0; i < this.balances.length; i++) {
       if (this.balances[i].value !== '') {

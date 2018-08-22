@@ -1,4 +1,4 @@
-import Pagination from "./pagination";
+import Pagination from './pagination';
 
 export default class Sorting {
   
@@ -13,12 +13,12 @@ export default class Sorting {
       arr.splice(0, 1);
       hash = arr.join('');
       if (hash === 'id-up' || hash === 'id-down') {
-        target = table.querySelector('#id-up');
+        target = window.table.querySelector('#id-up');
         target.id = hash;
         this.sortGrid(0, target);
       }
       if (hash === 'amount-up' || hash === 'amount-down') {
-        target = table.querySelector('#amount-up');
+        target = window.table.querySelector('#amount-up');
         target.id = hash;
         this.sortGrid(1, target);
       }
@@ -31,7 +31,7 @@ export default class Sorting {
    * @param {Object} type - по какому параметру сортируем
    * */
   sortGrid(colNum, type) {
-    let rowsArray = [].slice.call(tableBody.rows);
+    let rowsArray = [].slice.call(window.tableBody.rows);
     let compare;
     
     switch (type.id) {
