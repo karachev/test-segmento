@@ -1,4 +1,4 @@
-import {btnPrev, btnNext} from './../index';
+import {btnPrev, btnNext, buttonAdd} from './../index';
 
 export default class Pagination {
   constructor(rootNode) {
@@ -27,7 +27,7 @@ export default class Pagination {
    * @param {Number} page - номер страницы
    * */
   changePage(page) {
-    let tr = this.rootNode.querySelectorAll('tr');
+    let tr = window.tableBody.querySelectorAll('tr');
     
     for (let i = 0; i < tr.length; i++) {
       tr[i].style.display = 'none';
@@ -56,7 +56,7 @@ export default class Pagination {
   
   /** Вычисляет количество всех страниц */
   numPages() {
-    let tr = this.rootNode.querySelectorAll('tr');
+    let tr = window.tableBody.querySelectorAll('tr');
     return Math.ceil(tr.length / this.trPerPage);
   }
 };

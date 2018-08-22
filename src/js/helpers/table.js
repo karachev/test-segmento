@@ -1,3 +1,5 @@
+import {MAX_LENGTH_COMMENT} from './../index';
+
 export default class Table {
   constructor(rootNode, balances) {
     this.rootNode = rootNode;
@@ -25,5 +27,30 @@ export default class Table {
       }
     }
     result.innerHTML = resultValue.toString();
+  }
+  
+  /** Валидирует содержимое ячеек */
+  validationComment() {
+    let tr = document.querySelectorAll('tr');
+    this.balances = document.querySelectorAll('.balance');
+    let comment = document.querySelectorAll('.comment');
+    for (let i = 0; i < tr.length - 1; i++) {
+      this.balances[i].value = Math.round(parseFloat(this.balances[i].value) * 100) / 100;
+      if (this.balances[i].value === 0 ||
+        this.balances[i].value === '' ||
+        isNaN(this.balances[i].value) ||
+        this.balances[i].value > 1000 ||
+        this.balances[i].value < -1000) {
+        this.balances[i].classList.add('no-validate');
+      } else {
+        this.balances[i].classList.remove('no-validate');
+      }
+      if (comment[i].value === '' ||
+        comment[i].value.length > MAX_LENGTH_COMMENT) {
+        comment[i].classList.add('no-validate');
+      } else {
+        comment[i].classList.remove('no-validate');
+      }
+    }
   }
 };
