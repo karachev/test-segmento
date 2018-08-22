@@ -22,9 +22,9 @@ tableHeart.getBalance();
 
 let pagination = new Pagination();
 
-let hash = new Sorting(location.hash);
+let sortHeart = new Sorting(location.hash);
 
-hash.syncHash(location.hash);
+sortHeart.syncHash(location.hash);
 
 /** `Слушает` клики на кнопку с предыдущими страницами */
 btnPrev.addEventListener('click', function (evt) {
@@ -39,9 +39,9 @@ btnNext.addEventListener('click', function (evt) {
 });
 
 /** `Слушает` клики на заголовки таблицы */
-window.tableBody.addEventListener('click', function (evt) {
+window.table.addEventListener('click', function (evt) {
   if (evt.target.tagName !== 'TH') return;
-  Sorting.sortGrid(evt.target.cellIndex, evt.target, evt.target.id);
+  sortHeart.sortGrid(evt.target.cellIndex, evt.target, evt.target.id);
 });
 
 /** `Слушает` клики на кнопку добавления нового поля */
