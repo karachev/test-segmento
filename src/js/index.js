@@ -20,7 +20,7 @@ table.init();
 
 table.getBalance();
 
-let pagination = new Pagination(tableBody);
+let pagination = new Pagination();
 
 let hash = new Sorting(location.hash);
 

@@ -1,10 +1,9 @@
 import {btnPrev, btnNext, buttonAdd} from './../index';
 
 export default class Pagination {
-  constructor(rootNode) {
+  constructor() {
     this.currentPage = 1;
     this.trPerPage = 10;
-    this.rootNode = rootNode;
   }
   
   /** Переключает на предыдущую страницу */
@@ -28,12 +27,13 @@ export default class Pagination {
    * */
   changePage(page) {
     let tr = window.tableBody.querySelectorAll('tr');
+    let trPerPage = 10;
     
     for (let i = 0; i < tr.length; i++) {
       tr[i].style.display = 'none';
     }
     
-    for (let i = (page - 1) * this.trPerPage; i < (page * this.trPerPage); i++) {
+    for (let i = (page - 1) * trPerPage; i < (page * trPerPage); i++) {
       if (tr[i] !== undefined) {
         tr[i].style.display = 'table-row';
       }

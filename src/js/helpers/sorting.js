@@ -1,4 +1,3 @@
-import {tableBody} from './../index';
 import Pagination from "./pagination";
 
 export default class Sorting {
@@ -68,7 +67,7 @@ export default class Sorting {
     
     rowsArray.sort(compare);
     for (let i = 0; i < rowsArray.length; i++) {
-      tableBody.appendChild(rowsArray[i]);
+      window.tableBody.appendChild(rowsArray[i]);
     }
     
     Pagination.prototype.changePage(1);
